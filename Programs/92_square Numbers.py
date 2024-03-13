@@ -1,0 +1,1 @@
+print(["Its Zero" if i == 0 else i % 2 == 0 for i in range(int(input()))])
