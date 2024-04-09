@@ -1,5 +1,5 @@
 class Solution:
-    def ATMmachine(self , n , h , t_h , f_h , th):
+    def ATMmachine(self , n , h , t_h , f_h , th , amount):
         max_note = float("-inf")
         for i in range(h + 1):
             for j in range(t_h + 1):
@@ -20,6 +20,10 @@ if __name__ == '__main__':
     t_h = int(input())
     f_h = int(input())
     th =  int(input())
-    ans = o.ATMmachine(n , h , t_h , f_h , th)
+    ans = o.ATMmachine(n , h , t_h , f_h , th , amount)
     print(f"Total Notes : {ans}")    
     
+
+
+
+

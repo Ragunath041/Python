@@ -15,3 +15,11 @@ if __name__ == '__main__':
     distination = int(input())
     ans = obj.Elavator(floor , start , distination)
     print(ans)
+
+'''
+____
+____
+____  .
+____
+____  ..
+'''

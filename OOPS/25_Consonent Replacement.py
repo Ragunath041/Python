@@ -3,6 +3,7 @@ ans = ''
 for i in range(len(s)):
     a = s[i]
     aci = ord(a)
+    print(aci , end=' ')
     a_prev = chr(aci - 1)
     a_next = chr(aci + 1)
     if a in ['A' , 'E' , 'I' , 'O' , 'U']:
@@ -11,4 +12,5 @@ for i in range(len(s)):
         ans += a_next
     else:
         ans += a_prev
+print()
 print(ans)
