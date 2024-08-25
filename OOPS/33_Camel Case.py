@@ -1,8 +1,8 @@
 class Solution:
     def camel_case(self , s):
         s = s.title()
-        return ''.join(filter(lambda a : a.isalpha() , s))
-
+        lst = list(filter(lambda a : a.isalpha() , s))
+        return ''.join(lst)
 if __name__ == "__main__":
     obj = Solution()
     string = input()

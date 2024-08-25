@@ -21,8 +21,7 @@ if __name__ == '__main__':
     f_h = int(input())
     th =  int(input())
     ans = o.ATMmachine(n , h , t_h , f_h , th , amount)
-    print(f"Total Notes : {ans}")    
-    
+    print(ans)    
 
 
 

@@ -1,20 +1,18 @@
-from collections import defaultdict
+from collections import OrderedDict
 
-def print_odd_occurrences(arr):
-    # Create a defaultdict to store the count of each element
-    counts = defaultdict(int)
-    
-    
-    # Count occurrences of each element
-    for num in arr:
-        counts[num] += 1
-    print(counts)
-    
-    # Print elements with odd counts
-    for num, count in counts.items():
-        if count % 2 != 0:
-            print(num)
+def hit_rate(C, page_requests):
+    cache = OrderedDict()
+    req, hit = 0, 0
+    for i in page_requests:
+        req += 1
+        if i in cache:
+            hit += 1
+            cache.move_to_end(i)
+        else:
+            if len(cache) == C:
+                cache.popitem(last=False)
+            cache[i] = None
+    z = (hit / req) * 100
+    return round(z)
 
-# Example usage
-arr = [2 , 2 , 3 , 1 , 1]
-print_odd_occurrences(arr)
+print(hit_rate(3, [1,2,1,3,4,2]))
