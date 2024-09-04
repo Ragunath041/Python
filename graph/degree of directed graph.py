@@ -7,5 +7,5 @@ for _ in range(E):
     in_degree[y - 1].append(x)
 # for _ in adj:
 #     print(_)
-for _ in range(1 , E + 1):
-    print(f"{_} -> In-Degree : {len(in_degree[_-1])} , Out-Degree : {len(out_degree[_ - 1])}")
+# for _ in range(1 , E + 1):
+    # print(f"{_} -> In-Degree : {len(in_degree[_-1])} , Out-Degree : {len(out_degree[_ - 1])}")

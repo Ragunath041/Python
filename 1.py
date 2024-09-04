@@ -1,18 +1,23 @@
-from collections import OrderedDict
-
-def hit_rate(C, page_requests):
-    cache = OrderedDict()
-    req, hit = 0, 0
-    for i in page_requests:
-        req += 1
-        if i in cache:
-            hit += 1
-            cache.move_to_end(i)
-        else:
-            if len(cache) == C:
-                cache.popitem(last=False)
-            cache[i] = None
-    z = (hit / req) * 100
-    return round(z)
-
-print(hit_rate(3, [1,2,1,3,4,2]))
+def orangesRotting(grid):
+    def helper(i, j):
+        flag = False
+        if j < len(grid[0]) - 1 and grid[i][j] == 2:
+            if grid[i][j + 1] == 1:
+                grid[i][j + 1] = 2
+                flag = True
+        if i < len(grid) - 1 and grid[i][j] == 2:
+            if grid[i + 1][j] == 1:
+                grid[i + 1][j] = 2
+                flag = True
+        return flag
+    count = 0 
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if helper(i, j):
+                count += 1
+    for row in grid:
+        if 1 in row:  
+            return -1  
+    return count
+grid = [[0,2]]
+print(orangesRotting(grid))

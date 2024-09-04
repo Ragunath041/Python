@@ -6,5 +6,5 @@ for _ in range(E):
     x , y = map(int,input().split())
     adj_list[x].append(y)
 for _ in range(len(adj_list)):
-    if adj_list[i]:
+    if adj_list[_]:
         print(f"{_} : {sorted(adj_list[_])}")
