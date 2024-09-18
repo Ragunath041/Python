@@ -8,7 +8,7 @@ class Solution():
                 visited[n] = parent[n] = 1
                 for i in adj[n]:
                     if not visited[i]:
-                        if dfs(i):
+                        if dfs(i): 
                             return True
                     elif parent[i]:
                         return True

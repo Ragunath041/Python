@@ -11,7 +11,6 @@ for x, arr in D.items():
         in_degree[y].append(x)
 for _ in in_degree:
     ans.append(sum(_))
-# print(ans)
 maxi = float("-inf")
 sol = 0
 for i , j in enumerate(ans):
@@ -21,4 +20,3 @@ for i , j in enumerate(ans):
     if j == maxi:
         ans = i
 print(ans)
-# print(in_degree)

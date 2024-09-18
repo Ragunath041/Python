@@ -1,0 +1,22 @@
+from collections import deque
+def is_bipartite(graph):
+    R , B = "RED" , "BLUE"
+    n = len(graph)
+    color = [""] * n
+    for i in range(n):
+        if color[i] == "":
+            color[i] = R
+            Q = deque([i])
+            while Q:
+                x = Q.popleft()
+                cur = color[x]
+                next_color = B if cur is R else R
+                for j in graph[x]:
+                    if color[j] == "":
+                        color[j] = next_color
+                    elif color[j] == color[x]:
+                        return False
+    return True
+
+graph = [[1,2],[0,2],[1]]
+print(is_bipartite(graph))

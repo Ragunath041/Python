@@ -19,7 +19,7 @@ def insert_level_order(arr, root, i, n):
     return root
 
 # Example list
-arr = [1, None, 2, 3]
+arr = [5,6,8,3,2,1]
 n = len(arr)
 root = insert_level_order(arr, None, 0, n)
 

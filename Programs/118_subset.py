@@ -7,7 +7,7 @@ def subset(arr , temp , n , i , k , lst):
     subset(arr , temp , n , i  , k + 1 , lst)
 
 arr = list(map(int,input().split()))
-t = int(input())
+# t = int(input())
 temp = [0] * len(arr)
 lst = []
 subset(arr , temp , len(arr) , 0 ,0, lst)

@@ -58,6 +58,7 @@ def post_order(root):
 
 inp = input().split()
 lst = [int(i) if i != 'None' else None for i in inp]
+# lst = [5,6,8,3,2,1]
 tree = forming_BT(lst)
 post_order = post_order(tree)
 pre_order = pre_order(tree)
