@@ -1,17 +1,3 @@
-'''
-4
-2
-5
-7
-9
-4
-2 9
-7 2
-7 9
-9 5
-7
-9
-'''
 from collections import defaultdict
 def dfs(tree , s):
     for i in tree[s]:
