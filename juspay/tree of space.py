@@ -1,58 +1,92 @@
-def lock(name):
-    ind = nodes.index(name) + 1 
-    c1 = ind * 2  
-    c2 = ind * 2 + 1  
-    if status[name] == 'lock' or status[name] == 'fail':
-        return 'false'
-    else:
-        p = ind // 2 
-        status[nodes[p - 1]] = 'fail'
-        status[name] = 'lock'
-        return 'true'
-def unlock(name):
-    if status[name] == 'lock':
-        status[name] = 'unlock'
-        return 'true'
-    else:
-        return 'false'
-def upgrade(name):
-    ind = nodes.index(name) + 1  
-    c1 = ind * 2  
-    c2 = ind * 2 + 1  
-    if c1 in range(1, n + 1) and c2 in range(1, n + 1):
-        if status[nodes[c1 - 1]] == 'lock' and status[nodes[c2 - 1]] == 'lock':
-            status[nodes[c1 - 1]] = 'unlock'
-            status[nodes[c2 - 1]] = 'unlock'
-            status[nodes[ind - 1]] = 'lock'
-            return 'true'
-        else:
-            return 'false'
-    else:
-        return 'false'
-def precompute(queries):
-    d = []
-    for j in queries:
-        i = j.split()
-        d.append(i[1])  
-        d.append(int(i[0]))  
-    status = {}
-    for j in range(0, len(d) - 1, 2):
-        status[d[j]] = 'unlock' 
-    return status, d
-def operation(name, code):
-    result = 'false'
-    if code == 1:
-        result = lock(name)
-    elif code == 2:
-        result = unlock(name)
-    elif code == 3:
-        result = upgrade(name)
-    return result
-if __name__ == '__main__':
-    n = int(input())
-    apis = int(input())  
-    nodes = list(map(str, input().split())) 
-    queries = [input() for _ in range(apis)] 
-    status, d = precompute(queries)
-    for j in range(0, len(d) - 1, 2):
-        print(operation(d[j], d[j + 1]), end=' ')
+from collections import deque
+class Tree:
+    def __init__(self, name, head=None):
+        self.name = name
+        self.head = head
+        self.childrens = []
+        self.islocked = False
+        self.bottom = set()
+        self.locked = -1
+    def add(self, strs):
+        for name in strs:
+            self.childrens.append(Tree(name, self))
+class Tree2:
+    def __init__(self, name):
+        self.val = Tree(name)
+        print(self.val)
+        self.mp = {}
+    def buildTree(self, strs, n):
+        q = deque([self.val])
+        k = 1
+        size = len(strs)
+        while q:
+            r = q.popleft()
+            self.mp[r.name] = r
+            b = []
+            for i in range(k, min(size, k + n)):
+                b.append(strs[i])
+            r.add(b)
+            for child in r.childrens:
+                q.append(child)
+            k = i + 1
+    def update(self, r, current):
+        while r:
+            r.bottom.add(current)
+            r = r.head
+    def lock(self, name, id):
+        r = self.mp[name]
+        if r.islocked or len(r.bottom) > 0:
+            return False
+        par = r.head
+        while par:
+            if par.islocked:
+                return False
+            par = par.head
+        self.update(r.head, r)
+        r.islocked = True
+        r.locked = id
+        return True
+    def upgrade(self, name, id):
+        r = self.mp[name]
+        if r.islocked or len(r.bottom) == 0:
+            return False
+        for it in r.bottom:
+            if it.locked != id:
+                return False
+        par = r.head
+        while par:
+            if par.islocked:
+                return False
+            par = par.head
+        st = r.bottom.copy()
+        for it in st:
+            self.unlock(it.name, id)
+        self.lock(name, id)
+        return True
+    def unlock(self, name, id):
+        r = self.mp[name]
+        if not r.islocked or r.locked != id:
+            return False
+        par = r.head
+        while par:
+            par.bottom.discard(r)
+            par = par.head
+        r.islocked = False
+        r.locked = -1
+        return True
+size = int(input())
+m = int(input())
+testcases = int(input())
+a = list(map(str,input().split()))
+tree = Tree2(a[0])
+tree.buildTree(a, m)    
+for _ in range(testcases):
+    type_, name, id_ = input().split()
+    id_ = int(id_)
+    if type_ == '1':
+        print("true" if tree.lock(name, id_) else "false")
+    elif type_ == '2':
+        print("true" if tree.unlock(name, id_) else "false")
+    elif type_ == '3':
+        print("true" if tree.upgrade(name, id_) else "false")
+        
